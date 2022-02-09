@@ -1,0 +1,32 @@
+class Solution {
+
+    int total = 0;
+    int[][] weights;
+    public Solution(int[] w) {
+        weights = new int[w.length][2];
+        
+        for (int i=0;i<w.length;i++)
+            weights[i] = new int[]{total,total+=w[i]};
+    }
+    
+    public int pickIndex() {
+        int l = 0, r = weights.length - 1;
+        double val = Math.random() * total;
+        while (l <= r) {
+            int mid = (l+r)/2;
+            if ( weights[mid][0] <= val && val <= weights[mid][1])
+                return mid;
+            if ( val < weights[mid][1])
+                r = mid - 1;
+            else
+                l = mid + 1;
+        }
+        return l;
+    }
+}
+
+/**
+ * Your Solution object will be instantiated and called as such:
+ * Solution obj = new Solution(w);
+ * int param_1 = obj.pickIndex();
+ */
